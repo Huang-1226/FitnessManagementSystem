@@ -85,8 +85,8 @@ java -cp bin main.Main
 ## 🖥️ 运行截图
 
 > 
-> ![主菜单截图](screenshots/menu.png)
-> ![饮食方案截图](screenshots/diet.png)
+> ![主菜单截图](screenshots/图1.png)
+> ![饮食方案截图](screenshots/图2.png)
 
 ---
 
