@@ -84,7 +84,6 @@ java -cp bin main.Main
 
 ## 🖥️ 运行截图
 
-> （把你的命令行截图放在这里，示例：）
 > 
 > ![主菜单截图](screenshots/menu.png)
 > ![饮食方案截图](screenshots/diet.png)
