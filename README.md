@@ -1,115 +1,90 @@
-# 🏋️ Fitness Management System
+# Fitness Management System (Java)
 
-一个基于命令行的个人健身与营养管理系统，帮助用户追踪训练记录、计算热量消耗并生成个性化的饮食方案。该项目展示了我对 **面向对象设计**、**数据持久化** 以及 **跨学科知识整合**（运动科学 × 营养学 × 计算机科学）的理解与实践。
+A command-line personal fitness and nutrition manager built with Java 17. The project explores object-oriented design, local data persistence, and the integration of exercise science and nutrition into software.
 
----
+## Features
 
-## ✨ 核心功能
+- **User profile:** height, weight, age, sex, and activity level; BMI, BMR, and TDEE calculation; weight tracking.
+- **Strength training:** log exercises, sets, weight, and reps.
+- **Cardio:** log duration and intensity; estimate calories from MET values.
+- **Calorie expenditure:** combine MET and BMR models.
+- **Diet plan:** choose a goal (bulk, cut, or maintain); generate daily calories and macronutrient targets with a 3:4:3 meal split.
+- **Workout plans:** full-body, two-day split, single-muscle, and push/pull/legs (PPL) plans.
+- **History and statistics:** archive daily training, view a 7-day summary, and track weight changes.
+- **Muscle recovery reminders:** flag accumulated fatigue in the chest, back, and legs based on training intervals.
+- **Persistence:** save the user profile, training history, and exercise library to local files so data survives a restart.
 
-- **用户档案管理**：支持创建个人身体档案，计算 BMI 并提供体质评估建议
-- **训练打卡**：支持力量训练（记录组数、负重、次数）和有氧训练（基于 MET 值计算消耗）
-- **热量消耗计算**：基于 MET（代谢当量）和 BMR（基础代谢率）模型精确计算训练消耗
-- **智能饮食方案**：根据用户目标（增肌/减脂/维持）自动生成每日热量及三大营养素（蛋白质/脂肪/碳水）建议，并细化到三餐（3:4:3 分配）
-- **训练计划生成**：内置全身训练、双部位分化、单肌群专攻、PPL 三分化（推/拉/腿）计划
-- **历史追踪与统计**：支持训练归档、查看近 7 天训练汇总、体重变化追踪
-- **肌肉恢复提醒**：基于训练间隔自动提醒大肌群（胸/背/腿）的疲劳积累，避免过度训练
-- **数据持久化**：用户档案、训练历史、动作库自动保存至本地文件，重启不丢失
+## Tech stack
 
----
+- **Language:** Java 17+
+- **Architecture:** layered object-oriented design (`model` / `util` / `workout`)
+- **Persistence:** Java native serialization (`java.io.Serializable`)
+- **Interface:** command-line interface (CLI)
 
-## 🛠️ 技术栈
+## Project structure
 
-- **语言**：Java (JDK 17+)
-- **架构**：面向对象分层设计（`model` / `util` / `workout`）
-- **数据持久化**：Java 原生序列化（`java.io.Serializable`）
-- **交互方式**：命令行界面（CLI）
-
----
-
-## 📁 项目结构
-
-```
-fitness/
-├── src/
-│   ├── main/
-│   │   └── Main.java            # 程序入口 + 菜单交互
-│   ├── model/
-│   │   ├── Person.java          # 用户档案（BMI/BMR/体重追踪）
-│   │   ├── DailyTraining.java   # 单日训练容器
-│   │   ├── WorkoutLog.java      # 力量训练日志（含组记录）
-│   │   ├── CardioRecord.java    # 有氧训练记录
-│   │   ├── Exercise.java        # 动作库实体
-│   │   ├── MuscleRecoverRule.java # 肌肉恢复规则（枚举）
-│   │   └── WeightRecord.java    # 体重追踪记录
-│   ├── util/
-│   │   └── NutritionCalculator.java # 营养计算器（基于 BMR + 活动系数）
-│   └── workout/
-│       └── WorkoutLibrary.java  # 动作库与计划生成器
-├── bin/                         # 编译输出（不纳入版本控制）
-├── .gitignore
-└── README.md
+```text
+src/
+├── main/
+│   └── Main.java                 # entry point and menu
+├── model/
+│   ├── Person.java               # profile, BMI/BMR, weight tracking
+│   ├── DailyTraining.java        # one day of training
+│   ├── WorkoutLog.java           # strength-training log with sets
+│   ├── CardioRecord.java         # cardio record
+│   ├── Exercise.java             # exercise-library entity
+│   ├── MuscleRecoverRule.java    # muscle-recovery rules
+│   └── WeightRecord.java         # weight-tracking record
+├── util/
+│   └── NutritionCalculator.java  # BMR and activity-factor calculations
+└── workout/
+    └── WorkoutLibrary.java       # exercise library and plan generator
 ```
 
----
+## Run
 
-## 🚀 如何运行
+Requirements: JDK 17 or newer.
 
-### 前置要求
-- 安装 JDK 17 或更高版本
-- 配置好 Java 环境变量
-
-### 编译与运行
 ```bash
-# 进入项目根目录
-cd D:\JAVAworkspace\fitness
-
-# 编译所有 Java 源文件
-javac -d bin src/**/*.java
-
-# 运行程序
+# from the repository root
+javac -d bin src/main/*.java src/model/*.java src/util/*.java src/workout/*.java
 java -cp bin main.Main
 ```
 
-### 快速体验
-1. 执行 `java -cp bin main.Main`
-2. 按菜单提示依次完成：
-   - `1` → 创建个人档案
-   - `4` → 新建今日训练
-   - `13` → 生成训练计划 → 导入今日训练
-   - `15` → 生成饮食方案
-   - `10` → 归档今日训练
-   - `11` → 查看历史训练详情
+You can also open the project in IntelliJ IDEA or Eclipse and run `main.Main`.
+
+## Quick start
+
+1. `1` — create a personal profile.
+2. `4` — start today's training.
+3. `13` — generate a workout plan and import it into today's training.
+4. `15` — generate a diet plan.
+5. `10` — archive today's training.
+6. `11` — view training history.
+
+## Screenshots
+
+![Main menu](screenshots/menu.png)
+
+![Diet plan](screenshots/diet.png)
+
+## Design notes
+
+- Exercise-science and nutrition rules (MET, BMR, macronutrient split) are implemented as reusable calculations rather than hard-coded menu logic.
+- The model, calculation, and workout-library layers are separated so a new interface can reuse the same logic.
+- Input validation and null checks are used at the CLI boundary.
+- Java serialization keeps the project dependency-free while still providing persistence.
+
+## Future work
+
+- Progressive-overload suggestions based on training history.
+- Text-based charts for training trends.
+- A GUI or web interface; the React PWA port already covers the web version.
+
+## Related project
+
+The cross-platform React PWA port of this app is available at [fitness-app](https://github.com/Huang-1226/fitness-app).
 
 ---
 
-## 🖥️ 运行截图
-
-> 
-> ![主菜单截图](screenshots/menu.png)
-> ![饮食方案截图](screenshots/diet.png)
-
----
-
-## 💡 项目亮点
-
-- **跨学科整合**：将运动科学（MET/BMR）和营养学（营养素配比）转化为可执行的 Java 代码
-- **完整的 CRUD 闭环**：从数据录入 → 计算 → 归档 → 统计 → 持久化，全链路覆盖
-- **工程化意识**：采用分层架构、枚举管理恢复规则、防御性编程（输入校验/空指针防护）
-- **可扩展性**：动作库和饮食方案支持用户自定义扩展，符合开闭原则
-
----
-
-## 📚 后续优化方向
-
-- [ ] 渐进超负荷建议：基于历史训练数据推荐下一阶段重量/次数
-- [ ] 数据可视化：用字符画输出训练趋势图
-- [ ] GUI / Web 界面：提升交互体验，方便非技术用户使用
-
----
-
-## 📎 关于本项目
-这是我为了申请大学计算机专业而开发的项目作品集之一。通过这个项目，我加深了对面向对象设计、算法建模和跨学科应用的理解，也体会到了“技术服务于真实生活”的价值。
-
----
-
-**© 2026 Huang1226** | [GitHub](https://github.com/Huang-1226)
+© 2026 Huang1226 · [GitHub](https://github.com/Huang-1226)
